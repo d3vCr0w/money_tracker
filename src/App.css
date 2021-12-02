@@ -2,6 +2,7 @@
   background-color: #333;
   overflow: hidden;
   color: cornsilk;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .header img {
@@ -17,15 +18,104 @@
   margin-bottom: 35px;
 }
 
+.header input {
+  color: black;
+  font-weight: bolder;
+}
+
 .balance {
   float: right;
   margin: 35px;
+}
+.balance input {
+  margin-top: 10px;
 }
 
 .field {
   width: 100%;
   height: 30px;
-  border-radius: 4px;
+  border-radius: 6px;
   position: relative;
   color: cornsilk;
+}
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: '. .';
+}
+
+.col {
+  margin: auto;
+}
+
+.card {
+  border-radius: 10px;
+  width: 40vh;
+  text-align: center;
+  margin-top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: relative;
+}
+
+.card .content {
+  padding: 20px 10px 20px 10px;
+}
+
+.card .head {
+  background-color: rgb(112, 109, 109);
+  overflow: hidden;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  color: cornsilk;
+  padding: 10px 30px 10px 30px;
+}
+
+.card .head .title {
+  float: left;
+}
+
+.card .head .historyCount {
+  float: right;
+  color: cornsilk;
+  cursor: initial;
+}
+
+.movement {
+  width: 100%;
+  height: 50px;
+}
+
+.movement .description {
+  float: left;
+  padding-left: 35px;
+}
+
+.movement .amount {
+  float: right;
+  padding-right: 35px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+  padding: 5px;
+  color: white;
+  font-weight: bolder;
+}
+
+.income {
+  background-color: rgb(30, 175, 93);
+}
+
+.expense {
+  background-color: tomato;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.movement .button-delete {
+  margin-left: 5px;
+  margin-right: 10px;
 }
