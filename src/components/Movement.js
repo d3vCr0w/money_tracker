@@ -1,9 +1,11 @@
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import NumberFormat from 'react-number-format';
 
-const Movement = ({ description, amount, type }) => {
+const Movement = ({ description, amount, type, hidden }) => {
+  const handleDelete = () => {};
+
   return (
-    <div className='movement'>
+    <div className={'movement ' + (hidden ? 'hidden' : '')}>
       <div className='description'>
         <button className='btn btn-outline-success'>
           <FaEdit />

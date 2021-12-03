@@ -9,51 +9,69 @@ const Register = ({
   setHistoryCount,
   finalBalance,
   setFinalBalance,
+  handleTypeSearch,
+  typeFilter,
 }) => {
+  const [description, setDescription] = useState('');
+  const [amount, setAmount] = useState(0);
+  const [type, setType] = useState('income');
+  const [message, setMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (description === '') {
       setModalTitle('Error');
-      setError('El campo nombre no puede estar vacío');
+      setMessage('El campo nombre no puede estar vacío');
       showModal();
       return;
     }
     if (amount <= 0) {
       setModalTitle('Error');
-      setError('La cantidad debe ser numérico y mayor a cero');
+      setMessage('La cantidad debe ser numérico y mayor a cero');
       showModal();
       return;
     }
     if (type === 'expense') {
       if (parseFloat(finalBalance) - parseFloat(amount) < 0) {
         setModalTitle('Error');
-        setError(
+        setMessage(
           'No cuenta con saldo suficiente para realizar este movimiento'
         );
         showModal();
         return;
       } else {
         setModalTitle('Información');
-        setError('Registro Exitoso!');
+        setMessage('Registro Exitoso!');
         showModal();
       }
     }
     if (type === 'income') {
       setModalTitle('Información');
-      setError('Registro Exitoso!');
+      setMessage('Registro Exitoso!');
       showModal();
     }
 
-    const newMovement = { id: uuid(), description, amount, type };
+    const newMovement = {
+      id: uuid(),
+      description,
+      amount,
+      type,
+      hidden: false,
+    };
+
     setMovements([...movements, newMovement]);
     setAmount(0);
     setDescription('');
     setHistoryCount(movements.length + 1);
-    if (type == 'income') {
+
+    if (type === 'income') {
       setFinalBalance(parseFloat(finalBalance) + parseFloat(amount));
     } else {
       setFinalBalance(parseFloat(finalBalance) - parseFloat(amount));
     }
+    //TODO: No filtra al registrar nuevo movimiento
+    //handleTypeSearch(typeFilter);
   };
 
   const handleNameChange = ({ target }) => {
@@ -77,12 +95,6 @@ const Register = ({
   const hideModal = () => {
     setIsOpen(false);
   };
-
-  const [description, setDescription] = useState('');
-  const [amount, setAmount] = useState(0);
-  const [type, setType] = useState('income');
-  const [error, setError] = useState('');
-  const [modalTitle, setModalTitle] = useState('');
 
   return (
     <div className='card'>
@@ -130,9 +142,10 @@ const Register = ({
             id='btnCancel'
             className='btn btn-outline-danger'
             disabled
+            type='button'
             onClick={() => {
-              setAmount(0);
               setDescription('');
+              setAmount(0);
               setType('income');
             }}
           >
@@ -152,7 +165,7 @@ const Register = ({
         <Modal.Header>
           <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{error}</Modal.Body>
+        <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
           <button className='btn btn-outline-primary' onClick={hideModal}>
             Cerrar

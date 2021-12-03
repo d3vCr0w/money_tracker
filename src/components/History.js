@@ -1,6 +1,36 @@
 import Movement from './Movement';
 
-const History = ({ historyCount, movements }) => {
+const History = ({
+  historyCount,
+  setHistoryCount,
+  movements,
+  setMovements,
+  handleTypeSearch,
+}) => {
+  const handleSearch = ({ target }) => {
+    const searchTerm = target.value;
+    let filteredMovements = null;
+    if (searchTerm === '') {
+      filteredMovements = movements.map((movement) => ({
+        ...movement,
+        hidden: false,
+      }));
+    } else {
+      filteredMovements = movements.map((movement) => {
+        if (
+          movement.description
+            .toLowerCase()
+            .includes(target.value.toLowerCase())
+        ) {
+          return { ...movement, hidden: false };
+        } else {
+          return { ...movement, hidden: true };
+        }
+      });
+    }
+    setMovements(filteredMovements);
+  };
+
   return (
     <div className='card'>
       <div className='head'>
@@ -9,12 +39,83 @@ const History = ({ historyCount, movements }) => {
       </div>
 
       <div className='content'>
+        <div className='row'>
+          <div className='col-lg-5 col-md-5 col-sm-5'>
+            <div className='row'>
+              <div className='col-lg-12 col-md-12 col-sm-12 search-row'>
+                <input
+                  type='text'
+                  className='form-control'
+                  placeholder='Buscar'
+                  onChange={handleSearch}
+                ></input>
+              </div>
+            </div>
+          </div>
+          <div className='col-lg-7 col-md-7 col-sm-7'>
+            <div className='row'>
+              <div className='col-lg-4 col-md-4 col-sm-4'>
+                <div className='form-check'>
+                  <input
+                    className='form-check-input'
+                    type='radio'
+                    name='typeFilter'
+                    id='all'
+                    onChange={() => {
+                      document.getElementById('all').checked = true;
+                      handleTypeSearch('all');
+                    }}
+                  ></input>
+                  <label className='form-check-label' for='allFilter'>
+                    Todos
+                  </label>
+                </div>
+              </div>
+              <div className='col-lg-4 col-md-4 col-sm-4'>
+                <div className='form-check'>
+                  <input
+                    className='form-check-input'
+                    type='radio'
+                    name='typeFilter'
+                    id='income'
+                    onChange={() => {
+                      document.getElementById('income').checked = true;
+                      handleTypeSearch('income');
+                    }}
+                  ></input>
+                  <label className='form-check-label' for='incomeFilter'>
+                    Ingreso
+                  </label>
+                </div>
+              </div>
+              <div className='col-lg-4 col-md-4 col-sm-4'>
+                <div className='form-check'>
+                  <input
+                    className='form-check-input'
+                    type='radio'
+                    name='typeFilter'
+                    id='expense'
+                    onChange={() => {
+                      document.getElementById('expense').checked = true;
+                      handleTypeSearch('expense');
+                    }}
+                  ></input>
+                  <label className='form-check-label' for='expenseFilter'>
+                    Gasto
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
         {movements.map((movement) => (
           <Movement
             key={movement.id}
             description={movement.description}
             amount={movement.amount}
             type={movement.type}
+            hidden={movement.hidden}
           />
         ))}
       </div>
