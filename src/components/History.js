@@ -6,6 +6,8 @@ const History = ({
   movements,
   setMovements,
   handleTypeSearch,
+  finalBalance,
+  setFinalBalance,
 }) => {
   const handleSearch = ({ target }) => {
     const searchTerm = target.value;
@@ -66,9 +68,7 @@ const History = ({
                       handleTypeSearch('all');
                     }}
                   ></input>
-                  <label className='form-check-label' for='allFilter'>
-                    Todos
-                  </label>
+                  <label className='form-check-label'>Todos</label>
                 </div>
               </div>
               <div className='col-lg-4 col-md-4 col-sm-4'>
@@ -83,9 +83,7 @@ const History = ({
                       handleTypeSearch('income');
                     }}
                   ></input>
-                  <label className='form-check-label' for='incomeFilter'>
-                    Ingreso
-                  </label>
+                  <label className='form-check-label'>Ingreso</label>
                 </div>
               </div>
               <div className='col-lg-4 col-md-4 col-sm-4'>
@@ -100,9 +98,7 @@ const History = ({
                       handleTypeSearch('expense');
                     }}
                   ></input>
-                  <label className='form-check-label' for='expenseFilter'>
-                    Gasto
-                  </label>
+                  <label className='form-check-label'>Gasto</label>
                 </div>
               </div>
             </div>
@@ -112,10 +108,13 @@ const History = ({
         {movements.map((movement) => (
           <Movement
             key={movement.id}
-            description={movement.description}
-            amount={movement.amount}
-            type={movement.type}
-            hidden={movement.hidden}
+            movement={movement}
+            movements={movements}
+            setMovements={setMovements}
+            finalBalance={finalBalance}
+            setFinalBalance={setFinalBalance}
+            historyCount={historyCount}
+            setHistoryCount={setHistoryCount}
           />
         ))}
       </div>

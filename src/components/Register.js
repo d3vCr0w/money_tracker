@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -53,7 +53,7 @@ const Register = ({
     }
 
     const newMovement = {
-      id: uuid(),
+      id: uuidv4(),
       description,
       amount,
       type,
@@ -70,8 +70,6 @@ const Register = ({
     } else {
       setFinalBalance(parseFloat(finalBalance) - parseFloat(amount));
     }
-    //TODO: No filtra al registrar nuevo movimiento
-    //handleTypeSearch(typeFilter);
   };
 
   const handleNameChange = ({ target }) => {
