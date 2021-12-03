@@ -59,9 +59,13 @@ const Movement = ({
     setMovements(movements);
 
     if (newType === 'income') {
-      setFinalBalance(parseFloat(finalBalance) + parseFloat(newAmount));
+      setFinalBalance(
+        (finalBalance) => parseFloat(finalBalance) + parseFloat(newAmount)
+      );
     } else {
-      setFinalBalance(parseFloat(finalBalance) - parseFloat(newAmount));
+      setFinalBalance(
+        (finalBalance) => parseFloat(finalBalance) - parseFloat(newAmount)
+      );
     }
 
     hideModal();
