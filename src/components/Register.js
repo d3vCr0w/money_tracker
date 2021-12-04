@@ -9,14 +9,14 @@ const Register = ({
   setHistoryCount,
   finalBalance,
   setFinalBalance,
-  handleTypeSearch,
-  typeFilter,
+  typeFilter
 }) => {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState(0);
   const [type, setType] = useState('income');
   const [message, setMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,7 +57,7 @@ const Register = ({
       description,
       amount,
       type,
-      hidden: false,
+      hidden: typeFilter === 'all' ? false : type !== typeFilter
     };
 
     setMovements([...movements, newMovement]);

@@ -103,11 +103,11 @@
   font-weight: bolder;
 }
 
-.income {
+.amount.income {
   background-color: rgb(30, 175, 93);
 }
 
-.expense {
+.amount.expense {
   background-color: tomato;
 }
 

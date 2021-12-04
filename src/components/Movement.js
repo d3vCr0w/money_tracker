@@ -40,9 +40,9 @@ const Movement = ({
       }
     }
     if (movement.type === 'expense') {
-      setFinalBalance(parseFloat(finalBalance) + parseFloat(movement.amount));
+      setFinalBalance((finalBalance) => parseFloat(finalBalance) + parseFloat(movement.amount));
     } else {
-      setFinalBalance(parseFloat(finalBalance) - parseFloat(movement.amount));
+      setFinalBalance((finalBalance) => parseFloat(finalBalance) - parseFloat(movement.amount));
     }
 
     movements.map((item) => {
@@ -59,13 +59,9 @@ const Movement = ({
     setMovements(movements);
 
     if (newType === 'income') {
-      setFinalBalance(
-        (finalBalance) => parseFloat(finalBalance) + parseFloat(newAmount)
-      );
+      setFinalBalance((finalBalance) => parseFloat(finalBalance) + parseFloat(newAmount));
     } else {
-      setFinalBalance(
-        (finalBalance) => parseFloat(finalBalance) - parseFloat(newAmount)
-      );
+      setFinalBalance((finalBalance) => parseFloat(finalBalance) - parseFloat(newAmount));
     }
 
     hideModal();
@@ -127,7 +123,7 @@ const Movement = ({
         </button>
         {movement.description}
       </div>
-      <div className={`amount ${movement.type} `}>
+      <div className={`amount ${movement.type}`}>
         <NumberFormat
           value={movement.amount}
           displayType={'text'}

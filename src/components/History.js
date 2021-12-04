@@ -5,9 +5,9 @@ const History = ({
   setHistoryCount,
   movements,
   setMovements,
-  handleTypeSearch,
   finalBalance,
   setFinalBalance,
+  setTypeFilter
 }) => {
   const handleSearch = ({ target }) => {
     const searchTerm = target.value;
@@ -63,9 +63,10 @@ const History = ({
                     type='radio'
                     name='typeFilter'
                     id='all'
+                    defaultChecked
                     onChange={() => {
                       document.getElementById('all').checked = true;
-                      handleTypeSearch('all');
+                      setTypeFilter('all');
                     }}
                   ></input>
                   <label className='form-check-label'>Todos</label>
@@ -80,7 +81,7 @@ const History = ({
                     id='income'
                     onChange={() => {
                       document.getElementById('income').checked = true;
-                      handleTypeSearch('income');
+                      setTypeFilter('income');
                     }}
                   ></input>
                   <label className='form-check-label'>Ingreso</label>
@@ -95,7 +96,7 @@ const History = ({
                     id='expense'
                     onChange={() => {
                       document.getElementById('expense').checked = true;
-                      handleTypeSearch('expense');
+                      setTypeFilter('expense');
                     }}
                   ></input>
                   <label className='form-check-label'>Gasto</label>

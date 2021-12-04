@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import History from './components/History';
 import Register from './components/Register';
@@ -11,28 +11,13 @@ function App() {
   const [typeFilter, setTypeFilter] = useState('all');
   const [movements, setMovements] = useState([]);
 
-  const handleTypeSearch = (selectedType) => {
-    console.log('Inside handleTypeSearch');
-    let filteredMovements = null;
-
-    console.log(document.getElementById(selectedType));
-
-    if (selectedType === 'all') {
-      filteredMovements = movements.map((movement) => ({
-        ...movement,
-        hidden: false,
-      }));
-    } else {
-      filteredMovements = movements.map((movement) => {
-        if (movement.type === selectedType) {
-          return { ...movement, hidden: false };
-        } else {
-          return { ...movement, hidden: true };
-        }
-      });
-    }
-    setMovements(filteredMovements);
-  };
+  useEffect(() => {
+    setMovements((movements) => [...movements].map((movement) => ({
+      ...movement,
+      hidden: typeFilter === 'all' ? false : movement.type !== typeFilter
+    })))
+    // console.log(movements);
+  }, [typeFilter]);
 
   return (
     <div className='app'>
@@ -52,7 +37,6 @@ function App() {
             setHistoryCount={setHistoryCount}
             finalBalance={finalBalance}
             setFinalBalance={setFinalBalance}
-            handleTypeSearch={handleTypeSearch}
             typeFilter={typeFilter}
           />
         </div>
@@ -62,7 +46,6 @@ function App() {
             setHistoryCount={setHistoryCount}
             movements={movements}
             setMovements={setMovements}
-            handleTypeSearch={handleTypeSearch}
             typeFilter={typeFilter}
             setTypeFilter={setTypeFilter}
             finalBalance={finalBalance}
